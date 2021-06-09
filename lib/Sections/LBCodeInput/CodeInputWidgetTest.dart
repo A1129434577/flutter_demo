@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'LBCodeInputWidget.dart';
+import 'LBCodeInput.dart';
 
 class CodeInputWidgetPage extends StatelessWidget {
   const CodeInputWidgetPage({Key key}) : super(key: key);
@@ -21,7 +21,7 @@ class CodeInputWidgetPage extends StatelessWidget {
             Container(
               color: Colors.blue,
               height: 70,
-              child: LBCodeInputWidget(
+              child: LBCodeInput(
                 length: 6,
                 textStyle: TextStyle(fontSize: 20),
                 spacing: 0,//当spacing=0的时候边框因为存在重叠问题要单独处理一哈

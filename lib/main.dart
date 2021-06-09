@@ -4,6 +4,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/Sections/InheritedWidgetTestPage.dart';
 
 import 'Sections/CellLayout.dart';
 import 'Sections/LBCodeInput/CodeInputWidgetTest.dart';
@@ -29,12 +30,14 @@ class TestListView extends StatelessWidget {
     "CodeInputWidgetTest",
     "TabBarTest",
     "GetCodeButtonTest",
+    'InheritedWidgetTestPage'
   ];
   List<Widget> pages = [
     CellLayout(),
     CodeInputWidgetPage(),
     TabBarTestPage(),
     LBGetCodeButtonTestPage(),
+    InheritedWidgetTestPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -63,25 +66,6 @@ class TestListView extends StatelessWidget {
                                 return pages[index];
                               })
                       );
-
-
-                      // showYCAlertDialog(
-                      //   context: context,
-                      //   title: '提示',
-                      //   message: '信息信息信息',
-                      //   actions: [
-                      //     YCThemeButton(
-                      //       title: '确定',
-                      //       titleColor: Colors.red,
-                      //       border: Border.all(width: 1,color: Colors.red),
-                      //       waitSeconds: 5,
-                      //       style: YCThemeButtonStyle.YCBackgroundGoldenTitleBlack,
-                      //       onTap: (){
-                      //         print('点击了确定');
-                      //       },
-                      //     )
-                      //   ]
-                      // );
                     },
                   )),
                 ),

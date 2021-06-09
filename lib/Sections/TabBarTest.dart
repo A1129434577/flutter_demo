@@ -9,35 +9,25 @@ class TabBarTestPage extends StatefulWidget {
 class _TabBarTestPage extends State<TabBarTestPage>
     with SingleTickerProviderStateMixin {
   TabController mController;
-  List<String> tabTitleList;
-
-  List<bool> showDots = [];
+  List<NoticeTabItem> tabItemList;
 
   @override
   void initState() {
     super.initState();
 
-    tabTitleList = [
-      '服务通知',
-      '提现通知',
-      '最新资讯',
+    tabItemList = [
+      NoticeTabItem(title: '服务通知'),
+      NoticeTabItem(title: '提现通知',showRedDot: true),
+      NoticeTabItem(title: '最新资讯',showRedDot: true),
     ];
 
     mController = TabController(
-      length: tabTitleList.length,
+      length: tabItemList.length,
       vsync: this,
     );
 
-    tabTitleList.forEach((item) {
-      if(tabTitleList.indexOf(item) == mController.index){
-        showDots.add(false);
-      }else {
-        showDots.add(true);
-      }
-    });
-
     mController.addListener(() {
-      showDots[mController.index] = false;
+      tabItemList[mController.index].showRedDot = false;
       setState(() {
       });
     });
@@ -70,22 +60,18 @@ class _TabBarTestPage extends State<TabBarTestPage>
                 unselectedLabelColor: Colors.black,
                 indicator: TabSizeIndicator(),
                 labelStyle: TextStyle(fontSize: 18.0),
-                tabs: tabTitleList.map((item) {
-                  NoticeTabItem newItem = NoticeTabItem(title: item);
-                  newItem.showRedDot = showDots[tabTitleList.indexOf(item)];
-                  return newItem;
-                }).toList()
+                tabs: tabItemList
             ),
           ),
           Expanded(
             child: TabBarView(
               controller: mController,
-              children: tabTitleList.map((item) {
+              children: tabItemList.map((item) {
                 return Container(
                   color: Color(0xffF4F4F4),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text(item),
+                    child: Text(item.title),
                   ),
                 );
               }).toList(),
@@ -99,31 +85,49 @@ class _TabBarTestPage extends State<TabBarTestPage>
 }
 
 
-class NoticeTabItem extends StatelessWidget {
-
+class NoticeTabItem extends StatefulWidget with ChangeNotifier {
   String title;
-  bool showRedDot;
+  bool _showRedDot;
 
-  NoticeTabItem({this.title, this.showRedDot});
+  NoticeTabItem({this.title, showRedDot:false}){
+    _showRedDot = showRedDot;
+  }
 
+  set showRedDot (bool showRedDot){
+    _showRedDot=showRedDot;
+    notifyListeners();
+  }
+  get showRedDot => _showRedDot;
+
+  @override
+  _NoticeTabItemState createState() => _NoticeTabItemState();
+}
+
+class _NoticeTabItemState extends State<NoticeTabItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    widget.addListener(() {
+      setState(() {
+
+      });
+    });
     return Container(
       child: Stack(
         alignment: AlignmentDirectional.topEnd,
         children: [
           Center(
             child: Tab(
-              text: this.title,
+              text: widget.title,
             ),
           ),
           Positioned(
               top: 13,
               left: MediaQuery.of(context).size.width / 6 + 20,
               child: Container(
-                height: (this.showRedDot == true) ? 10 : 0,
-                width: (this.showRedDot == true) ? 10 : 0,
+                height: (widget.showRedDot == true) ? 10 : 0,
+                width: (widget.showRedDot == true) ? 10 : 0,
                 // color: Colors.red,
                 decoration: new BoxDecoration(
                   //背景

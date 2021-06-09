@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LBCodeInputWidget extends StatefulWidget {
+class LBCodeInput extends StatefulWidget {
   int length;
   TextStyle textStyle;
-  Color tintColor;
+  Color tintColor;//光标颜色
   double spacing;
   TextField hiddenTextField;
-  Decoration decoration;
+  Decoration decoration;//每个输入框边框
   ValueChanged<String> onChanged;
   bool obscureText;
 
-  LBCodeInputWidget({
+  LBCodeInput({
     @required this.length,
     this.textStyle = const TextStyle(fontSize: 20),
     this.tintColor = Colors.blue,
@@ -26,7 +26,7 @@ class LBCodeInputWidget extends StatefulWidget {
   _LBCodeInputWidgetState createState() => _LBCodeInputWidgetState();
 }
 
-class _LBCodeInputWidgetState extends State<LBCodeInputWidget> {
+class _LBCodeInputWidgetState extends State<LBCodeInput> {
   TextEditingController _textFieldController;
   FocusNode _hiddenTextFieldFocus;
 
@@ -48,7 +48,6 @@ class _LBCodeInputWidgetState extends State<LBCodeInputWidget> {
     // widgetsBinding.addPostFrameCallback((callback) {
     //   print("addPostFrameCallback be invoke");
     // });
-
     return Container(
       child: Stack(
         children: [
